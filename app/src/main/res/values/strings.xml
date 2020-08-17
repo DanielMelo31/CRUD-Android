@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">carShopFirebase</string>
+    <string name="car_seats">Seats</string>
+    <string name="car_price">Price</string>
+    <string name="car_status">Status</string>
+    <string name="car_model">Model</string>
+    <string name="car_date_released">Date released</string>
+    <string name="car_categories">Categories</string>
+</resources>
