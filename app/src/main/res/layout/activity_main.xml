@@ -49,4 +49,15 @@
         android:inputType="text"
         android:hint="@string/car_categories"
         android:textSize="@dimen/text_dimens"/>
+    <TextView
+        android:id="@+id/tvListTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Car List"
+        android:textSize="40dp"
+        android:gravity="center"/>
+    <ListView
+        android:id="@+id/car_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

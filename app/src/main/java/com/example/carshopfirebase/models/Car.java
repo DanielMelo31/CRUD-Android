@@ -1,5 +1,7 @@
 package com.example.carshopfirebase.models;
 
+import android.graphics.ColorSpace;
+
 public class Car {
     private String id;
     private String seats;
@@ -63,5 +65,10 @@ public class Car {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return model;
     }
 }
