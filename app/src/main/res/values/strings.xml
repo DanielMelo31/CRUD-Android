@@ -3,7 +3,16 @@
     <string name="car_seats">Seats</string>
     <string name="car_price">Price</string>
     <string name="car_status">Status</string>
+    <string-array name="status_options">
+        <item>New</item>
+        <item>Used</item>
+    </string-array>
     <string name="car_model">Model</string>
     <string name="car_date_released">Date released</string>
     <string name="car_categories">Categories</string>
+    <string-array name="categories_options">
+        <item>Electric</item>
+        <item>Truck</item>
+        <item>Commercial</item>
+    </string-array>
 </resources>

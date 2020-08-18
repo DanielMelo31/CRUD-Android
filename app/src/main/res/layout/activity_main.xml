@@ -21,13 +21,16 @@
         android:inputType="number"
         android:hint="@string/car_price"
         android:textSize="@dimen/text_dimens"/>
-    <EditText
-        android:id="@+id/etCarStatus"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/car_status"
+        android:text="@string/car_status"
         android:textSize="@dimen/text_dimens"/>
+
+    <Spinner
+        android:id="@+id/spStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/etCarModel"
         android:layout_width="match_parent"
@@ -42,13 +45,15 @@
         android:inputType="date"
         android:hint="@string/car_date_released"
         android:textSize="@dimen/text_dimens"/>
-    <EditText
-        android:id="@+id/etCarCategories"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/car_categories"
-        android:textSize="@dimen/text_dimens"/>
+        android:text="Categories"
+        android:textSize="25dp"/>
+    <Spinner
+        android:id="@+id/spCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tvListTitle"
         android:layout_width="match_parent"
@@ -56,8 +61,10 @@
         android:text="Car List"
         android:textSize="40dp"
         android:gravity="center"/>
+
     <ListView
         android:id="@+id/car_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="10dp"/>
 </LinearLayout>

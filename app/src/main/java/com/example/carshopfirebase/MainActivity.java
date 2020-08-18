@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Car> arrayAdapterCar;
 
     ListView listV_cars;
-    EditText seatsView, priceView, statusView, modelView, dateReleasedView, categoriesView;
-
+    EditText seatsView, priceView, modelView, dateReleasedView;
+    Spinner categoriesView, statusOptionsView;
 
 
     FirebaseDatabase firebaseDatabase;
@@ -44,12 +44,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        categoriesView = findViewById(R.id.spCategories);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories_options,
+                android.R.layout.simple_spinner_item);
+        categoriesView.setAdapter(adapter);
+
+        statusOptionsView = findViewById(R.id.spStatus);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.status_options,
+                android.R.layout.simple_spinner_item);
+        statusOptionsView.setAdapter(adapter1);
+
         seatsView = findViewById(R.id.etCarSeats);
         priceView = findViewById(R.id.etCarPrice);
-        statusView = findViewById(R.id.etCarStatus);
         modelView = findViewById(R.id.etCarModel);
         dateReleasedView = findViewById(R.id.etCarDateReleased);
-        categoriesView = findViewById(R.id.etCarCategories);
         listV_cars = findViewById(R.id.car_list);
 
         initializeFirebase();
@@ -61,10 +69,9 @@ public class MainActivity extends AppCompatActivity {
                  carSelected = (Car) parent.getItemAtPosition(position);
                  seatsView.setText(carSelected.getSeats());
                  priceView.setText(carSelected.getPrice());
-                 statusView.setText(carSelected.getStatus());
                  modelView.setText(carSelected.getModel());
                  dateReleasedView.setText(carSelected.getDateReleased());
-                 categoriesView.setText(carSelected.getCategory());
+
             }
         });
     }
@@ -106,15 +113,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         String Seats = seatsView.getText().toString();
         String Price = priceView.getText().toString();
-        String Status = statusView.getText().toString();
         String Model = modelView.getText().toString();
         String DateReleased = dateReleasedView.getText().toString();
-        String Category = categoriesView.getText().toString();
+        String Category = categoriesView.getSelectedItem().toString();
+
 
         switch (item.getItemId()){
             case R.id.icon_add: {
-                if (Seats.equals("")||Price.equals("")||Status.equals("")||Model.equals("")
-                    ||DateReleased.equals("")||Category.equals("")){
+                if (Seats.equals("")||Price.equals("")||Model.equals("")
+                    ||DateReleased.equals("")){
                     validation();
                 }
                 else {
@@ -122,10 +129,10 @@ public class MainActivity extends AppCompatActivity {
                     car.setId(UUID.randomUUID().toString());
                     car.setSeats(Seats);
                     car.setPrice(Price);
-                    car.setStatus(Status);
                     car.setModel(Model);
                     car.setDateReleased(DateReleased);
                     car.setCategory(Category);
+
                     databaseReference.child("Car").child(car.getId()).setValue(car);
 
                     Toast.makeText(this, "Add", Toast.LENGTH_LONG).show();
@@ -138,9 +145,11 @@ public class MainActivity extends AppCompatActivity {
                 car.setId(carSelected.getId());
                 car.setSeats(seatsView.getText().toString().trim());
                 car.setPrice(priceView.getText().toString().trim());
-                car.setStatus(statusView.getText().toString().trim());
+                car.setStatus(statusOptionsView.getSelectedItem().toString().trim());
                 car.setModel(modelView.getText().toString().trim());
-                car.setCategory(categoriesView.getText().toString().trim());
+                car.setDateReleased(dateReleasedView.getText().toString().trim());
+                car.setCategory(categoriesView.getSelectedItem().toString().trim());
+
                 databaseReference.child("Car").child(car.getId()).setValue(car);
 
                 Toast.makeText(this, "Save", Toast.LENGTH_LONG).show();
@@ -165,18 +174,15 @@ public class MainActivity extends AppCompatActivity {
     private void clearBoxes() {
         seatsView.setText("");
         priceView.setText("");
-        statusView.setText("");
         modelView.setText("");
         dateReleasedView.setText("");
-        categoriesView.setText("");
+
     }
     private void validation() {
         String Seats = seatsView.getText().toString();
         String Price = priceView.getText().toString();
-        String Status = statusView.getText().toString();
         String Model = modelView.getText().toString();
         String DateReleased = dateReleasedView.getText().toString();
-        String Category = categoriesView.getText().toString();
 
         if (Seats.equals("")){
             seatsView.setError("Required");
@@ -184,17 +190,12 @@ public class MainActivity extends AppCompatActivity {
         else if (Price.equals("")){
             priceView.setError("Required");
         }
-        else if (Status.equals("")){
-            statusView.setError("Required");
-        }
         else if (Model.equals("")){
             modelView.setError("Required");
         }
         else if (DateReleased.equals("")){
             dateReleasedView.setError("Required");
         }
-        else if (Category.equals("")){
-            categoriesView.setError("Required");
-        }
+
     }
 }
